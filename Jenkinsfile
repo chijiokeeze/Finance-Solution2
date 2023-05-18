@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    stages {
+        stage('Download Source Code') {
+            steps {
+                git 'https://github.com/chijiokeeze/finance-solution.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+        stage('Dockerize') {
+            steps {
+                sh 'docker build -t achuchekwi/htech-finance-app:latest .'
+                sh 'docker push achuchekwi/htech-finance-app:latest'
+            }
+        }
+    }
+}
