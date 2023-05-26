@@ -20,8 +20,13 @@ pipeline {
         }
         stage('Dockerize') {
             steps {
-                sh 'docker build -t achuchekwi/htech-finance-app:latest .'
-                sh 'docker push achuchekwi/htech-finance-app:latest'
+                withCredentials([usernamePassword(
+                    credentialsId: 'Docker-credentials', 
+                    passwordVariable: 'PASSWD', 
+                    usernameVariable: 'USER')]) {
+                sh 'docker build -t cj15/htech-finance-app:latest .'
+                sh 'docker push cj15/htech-finance-app:latest'
+                }
             }
         }
     }
