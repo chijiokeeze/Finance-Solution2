@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Download SourceCode') {
+        stage('Download-Source-Code') {
             steps {
                 git 'https://github.com/chijiokeeze/finance-solution.git'
             }
