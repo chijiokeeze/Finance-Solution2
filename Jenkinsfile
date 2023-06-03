@@ -11,7 +11,7 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('SonarQube-Analysis') {
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'jenkins-token') {
                     sh 'mvn sonar:sonar'
