@@ -18,6 +18,25 @@ pipeline {
                 }
             }
         }
+        stage('Upload War file to Nexus') {
+            steps {
+                nexusArtifactUploader artifacts: [
+                    [
+                        artifactId: 'htech-finance-app', 
+                        classifier: '', 
+                        file: 'target/htech-finance-app-1.0-SNAPSHOT.jar', 
+                        type: 'jar'
+                    ]
+                ], 
+                    credentialsId: 'Nexus-credentials', 
+                    groupId: 'com.htech', 
+                    nexusUrl: '54.90.134.201:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'HTech-FinanceApp', 
+                    version: '1.0-SNAPSHOT'
+            }
+        }        
         stage('Dockerize') {
             steps {
                 withCredentials([usernamePassword(
