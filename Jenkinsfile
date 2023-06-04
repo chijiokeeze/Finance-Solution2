@@ -34,7 +34,7 @@ pipeline {
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: 'HTech-FinanceApp', 
-                    version: '0.1-SNAPSHOT'
+                    version: '0.1'
             }
         }        
         stage('Dockerize') {
