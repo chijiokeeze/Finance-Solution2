@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Download-Source-Code') {
+        stage('Download Source Code') {
             steps {
                 git 'https://github.com/chijiokeeze/finance-solution.git'
             }
@@ -18,7 +18,7 @@ pipeline {
                 }
             }
         }
-        stage('Upload War file too Nexus') {
+        stage('Upload War file to Nexus') {
             steps {
                 nexusArtifactUploader artifacts: [
                     [
