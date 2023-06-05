@@ -18,45 +18,35 @@ pipeline {
                 }
             }
         }
-//         stage('Upload War file to Nexus') {
-//             steps {
-//                 nexusArtifactUploader artifacts: [
-//                     [
-//                         artifactId: 'htech-finance-app', 
-//                         classifier: '', 
-//                         file: 'target/htech-finance-app-1.0-SNAPSHOT.jar', 
-//                         type: 'jar'
-//                     ]
-//                 ], 
-//                     credentialsId: 'Nexus-credentials', 
-//                     groupId: 'com.htech', 
-//                     nexusUrl: '54.90.134.201:8081', 
-//                     nexusVersion: 'nexus3', 
-//                     protocol: 'http', 
-//                     repository: 'HTech-FinanceApp', 
-//                     version: '0.1'
-//             }
-//         }        
-//         stage('Dockerize') {
-//             steps {
-//                 withCredentials([usernamePassword(
-//                     credentialsId: 'Docker-credentials', 
-//                     passwordVariable: 'PASSWD', 
-//                     usernameVariable: 'USER')]) {
-//                 sh 'docker build -t cj15/htech-finance-app:latest .'
-//                 sh 'docker push cj15/htech-finance-app:latest'
-//                 }
-//             }
-//         }
-        stage('Dockerize') {
+        stage('Upload War file to Nexus') {
             steps {
-                withDockerRegistry(
-                    credentialsId: 'Docker-credentials', 
-                    url: 'https://hub.docker.com') {
-                sh 'docker build -t cj15/htech-finance-app:latest .'
-                sh 'docker push cj15/htech-finance-app:latest'
+                nexusArtifactUploader artifacts: [
+                    [
+                        artifactId: 'htech-finance-app', 
+                        classifier: '', 
+                        file: 'target/htech-finance-app-1.0-SNAPSHOT.jar', 
+                        type: 'jar'
+                    ]
+                ], 
+                    credentialsId: 'Nexus-credentials', 
+                    groupId: 'com.htech', 
+                    nexusUrl: '54.90.134.201:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'HTech-FinanceApp', 
+                    version: '0.1'
+                }
+            }        
+            stage('Dockerize') {
+                steps {
+                    withCredentials([usernamePassword(
+                        credentialsId: 'Docker-credentials', 
+                        passwordVariable: 'PASSWD', 
+                        usernameVariable: 'USER')]) {
+                    sh 'docker build -t cj15/htech-finance-app:latest .'
+                    sh 'docker push cj15/htech-finance-app:latest'
+                    }
                 }
             }
-        }
     }
 }
