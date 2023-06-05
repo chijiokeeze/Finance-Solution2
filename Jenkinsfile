@@ -20,6 +20,7 @@ pipeline {
         }
         stage('Upload War file to Nexus') {
             steps {
+                def readPomVersion = readMavenPom file: 'pom.xml'
                 nexusArtifactUploader artifacts: [
                     [
                         artifactId: 'htech-finance-app', 
@@ -34,7 +35,7 @@ pipeline {
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: 'HTech-FinanceApp', 
-                    version: '0.2'
+                    version: "$(readMavenPom.version)"
                 }
             }        
             stage('Dockerize') {
