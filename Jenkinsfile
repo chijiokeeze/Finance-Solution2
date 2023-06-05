@@ -37,12 +37,22 @@ pipeline {
 //                     version: '0.1'
 //             }
 //         }        
+//         stage('Dockerize') {
+//             steps {
+//                 withCredentials([usernamePassword(
+//                     credentialsId: 'Docker-credentials', 
+//                     passwordVariable: 'PASSWD', 
+//                     usernameVariable: 'USER')]) {
+//                 sh 'docker build -t cj15/htech-finance-app:latest .'
+//                 sh 'docker push cj15/htech-finance-app:latest'
+//                 }
+//             }
+//         }
         stage('Dockerize') {
             steps {
-                withCredentials([usernamePassword(
+                withDockerRegistry(
                     credentialsId: 'Docker-credentials', 
-                    passwordVariable: 'PASSWD', 
-                    usernameVariable: 'USER')]) {
+                    url: 'https://hub.docker.com') {
                 sh 'docker build -t cj15/htech-finance-app:latest .'
                 sh 'docker push cj15/htech-finance-app:latest'
                 }
