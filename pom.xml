@@ -5,7 +5,7 @@
 
     <groupId>com.htech</groupId>
     <artifactId>htech-finance-app</artifactId>
-    <version>1.0.1</version>
+    <version>1.0-SNAPSHOT</version>
     <properties>
 		<jdk.version>1.8</jdk.version>
 		<spring.version>5.1.2.RELEASE</spring.version>
