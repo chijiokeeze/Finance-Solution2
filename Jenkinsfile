@@ -21,7 +21,7 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('SonarQube Analysis') {
+        stage('SonarQube-Analysis') {
             steps {
                 withSonarQubeEnv(installationName: 'SonarQube', credentialsId: 'jenkins-token') {
                     sh 'mvn sonar:sonar'
@@ -44,7 +44,7 @@ pipeline {
                         [
                             artifactId: 'htech-finance-app', 
                             classifier: '', 
-                            file: 'target/htech-finance-app-$readPomVersion.version.jar', 
+                            file: 'target/htech-finance-app-2.0.jar', 
                             type: 'jar'
                         ]
                     ], 
@@ -64,8 +64,9 @@ pipeline {
                     credentialsId: 'Docker-credentials', 
                     passwordVariable: 'PASSWD', 
                     usernameVariable: 'USER')]) {
-                sh 'docker build -t cj15/htech-finance-app:latest .'
-                sh 'docker push cj15/htech-finance-app:latest'
+                sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+                sh 'docker image tag $JOB_NAME:v1.$BUILD_ID cj15/$JOB_NAME:v1.$BUILD_ID
+                sh 'docker image tag $JOB_NAME:v1.$BUILD_ID cj15/$JOB_NAME:latest    
                 }
             }
         }
