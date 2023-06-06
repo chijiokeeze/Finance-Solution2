@@ -10,7 +10,7 @@ ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 
 # Copy any additional configuration files or webapps
-COPY target/htech-finance-app.war $CATALINA_HOME/webapps/
+COPY target/htech-finance-app.jar $CATALINA_HOME/webapps/
 
 # Expose the default Tomcat port
 EXPOSE 8080
