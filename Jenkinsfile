@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh 'mvn verify -DskipUnitTest'
             }
-        }        
+        }
         stage('Build') {
             steps {
                 sh 'mvn clean package'
@@ -28,10 +28,16 @@ pipeline {
                 }
             }
         }
+        stage{
+            steps {
+                script{
+                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-token'
+                }
+            }
+        }
         stage('Upload War file to Nexus') {
             steps {
                 script{
-                
                     def nexusRepo = readMavenPom.version.endsWith("SNAPSHOT") ? "HTech-FinanceApp-Snapshot" : "HTech-FinanceApp"
 
                     nexusArtifactUploader artifacts: [
@@ -49,19 +55,19 @@ pipeline {
                         protocol: 'http', 
                         repository: nexusRepo, 
                         version: '0.3'
-                    }
                 }
             }
-            stage('Dockerize') {
-                steps {
-                    withCredentials([usernamePassword(
-                        credentialsId: 'Docker-credentials', 
-                        passwordVariable: 'PASSWD', 
-                        usernameVariable: 'USER')]) {
-                    sh 'docker build -t cj15/htech-finance-app:latest .'
-                    sh 'docker push cj15/htech-finance-app:latest'
-                    }
+        }
+        stage('Dockerize') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'Docker-credentials', 
+                    passwordVariable: 'PASSWD', 
+                    usernameVariable: 'USER')]) {
+                sh 'docker build -t cj15/htech-finance-app:latest .'
+                sh 'docker push cj15/htech-finance-app:latest'
                 }
             }
+        }
     }
 }
