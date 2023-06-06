@@ -30,9 +30,7 @@ pipeline {
         }
         stage{
             steps {
-                script{
                     waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-token'
-                }
             }
         }
         stage('Upload War file to Nexus') {
