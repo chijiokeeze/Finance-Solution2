@@ -37,7 +37,10 @@ pipeline {
           }
         stage('Upload War file to Nexus') {
             steps {
-                nexusArtifactUploader artifacts: [
+                script {
+                    def readPomVersion = readMavenPom file: 'pom.xml'
+                    nexusArtifactUploader artifacts: 
+                    [
                         [
                             artifactId: 'htech-finance-app', 
                             classifier: '', 
@@ -45,13 +48,14 @@ pipeline {
                             type: 'jar'
                         ]
                     ], 
-                        credentialsId: 'Nexus-credentials', 
-                        groupId: 'com.htech', 
-                        nexusUrl: '54.90.134.201:8081', 
-                        nexusVersion: 'nexus3', 
-                        protocol: 'http', 
-                        repository: 'HTech-FinanceApp', 
-                        version: '0.3'
+                    credentialsId: 'Nexus-credentials', 
+                    groupId: 'com.htech', 
+                    nexusUrl: '54.90.134.201:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'HTech-FinanceApp', 
+                    version: "${readPomVersion.version}"
+                }
             }
         }
         stage('Dockerize') {
