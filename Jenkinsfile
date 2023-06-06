@@ -37,7 +37,7 @@ pipeline {
           }
         stage('Upload War file to Nexus') {
             steps {
-                step {
+                script {
                     def nexusRepo = readMavenPom.version.endsWith("SNAPSHOT") ? "HTech-FinanceApp-Snapshot" : "HTech-FinanceApp"
 
                     nexusArtifactUploader artifacts: [
