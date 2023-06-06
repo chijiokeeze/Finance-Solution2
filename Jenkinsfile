@@ -65,7 +65,8 @@ pipeline {
                         credentialsId: 'Docker-credentials', 
                         passwordVariable: 'PASSWD', 
                         usernameVariable: 'USER')]) {
-                            sh 'docker image build -t htech-finance-app:v1.$BUILD_ID .'
+                            sh 'docker image build -t cj15/htech-finance-app:v1.$BUILD_ID .'
+                            sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
                         }
                 }
             }
