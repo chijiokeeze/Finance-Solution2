@@ -28,11 +28,13 @@ pipeline {
                 }
             }
         }
-        stage{
+        stage("Quality Gate") {
             steps {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-token'
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
             }
-        }
+          }
         stage('Upload War file to Nexus') {
             steps {
                 script{
