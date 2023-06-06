@@ -37,10 +37,7 @@ pipeline {
           }
         stage('Upload War file to Nexus') {
             steps {
-                script {
-                    def nexusRepo = readMavenPom.version.endsWith("SNAPSHOT") ? "HTech-FinanceApp-Snapshot" : "HTech-FinanceApp"
-
-                    nexusArtifactUploader artifacts: [
+                nexusArtifactUploader artifacts: [
                         [
                             artifactId: 'htech-finance-app', 
                             classifier: '', 
@@ -53,9 +50,8 @@ pipeline {
                         nexusUrl: '54.90.134.201:8081', 
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
-                        repository: nexusRepo, 
+                        repository: 'HTech-FinanceApp', 
                         version: '0.3'
-                }
             }
         }
         stage('Dockerize') {
