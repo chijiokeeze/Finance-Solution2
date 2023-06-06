@@ -6,6 +6,16 @@ pipeline {
                 git 'https://github.com/chijiokeeze/finance-solution.git'
             }
         }
+        stage('Unit Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Integration Testing') {
+            steps {
+                sh 'mvn verify -DskipUnitTest'
+            }
+        }        
         stage('Build') {
             steps {
                 sh 'mvn clean package'
