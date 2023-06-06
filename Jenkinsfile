@@ -18,26 +18,26 @@ pipeline {
                 }
             }
         }
-        stage('Upload War file to Nexus') {
-            steps {
-                def readPomVersion = readMavenPom file: 'pom.xml'
-                nexusArtifactUploader artifacts: [
-                    [
-                        artifactId: 'htech-finance-app', 
-                        classifier: '', 
-                        file: 'target/htech-finance-app-1.0-SNAPSHOT.jar', 
-                        type: 'jar'
-                    ]
-                ], 
-                    credentialsId: 'Nexus-credentials', 
-                    groupId: 'com.htech', 
-                    nexusUrl: '54.90.134.201:8081', 
-                    nexusVersion: 'nexus3', 
-                    protocol: 'http', 
-                    repository: 'HTech-FinanceApp', 
-                    version: "$(readMavenPom.version)"
-                }
-            }        
+//         stage('Upload War file to Nexus') {
+//             steps {
+//                 def readPomVersion = readMavenPom file: 'pom.xml'
+//                 nexusArtifactUploader artifacts: [
+//                     [
+//                         artifactId: 'htech-finance-app', 
+//                         classifier: '', 
+//                         file: 'target/htech-finance-app-1.0-SNAPSHOT.jar', 
+//                         type: 'jar'
+//                     ]
+//                 ], 
+//                     credentialsId: 'Nexus-credentials', 
+//                     groupId: 'com.htech', 
+//                     nexusUrl: '54.90.134.201:8081', 
+//                     nexusVersion: 'nexus3', 
+//                     protocol: 'http', 
+//                     repository: 'HTech-FinanceApp', 
+//                     version: "$(readMavenPom.version)"
+//                 }
+//             }        
             stage('Dockerize') {
                 steps {
                     withCredentials([usernamePassword(
