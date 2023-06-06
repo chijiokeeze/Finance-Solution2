@@ -44,7 +44,7 @@ pipeline {
                         [
                             artifactId: 'htech-finance-app', 
                             classifier: '', 
-                            file: 'target/htech-finance-app.jar', 
+                            file: 'target/htech-finance-app-2.0.jar', 
                             type: 'jar'
                         ]
                     ], 
