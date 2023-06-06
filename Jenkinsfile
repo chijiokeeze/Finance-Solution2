@@ -37,6 +37,7 @@ pipeline {
           }
         stage('Upload War file to Nexus') {
             steps {
+                step {
                     def nexusRepo = readMavenPom.version.endsWith("SNAPSHOT") ? "HTech-FinanceApp-Snapshot" : "HTech-FinanceApp"
 
                     nexusArtifactUploader artifacts: [
@@ -54,6 +55,7 @@ pipeline {
                         protocol: 'http', 
                         repository: nexusRepo, 
                         version: '0.3'
+                }
             }
         }
         stage('Dockerize') {
