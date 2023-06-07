@@ -65,18 +65,15 @@ pipeline {
                         }
                 }
             }
-//         stage('Push Image to dockerhub') {
-//             steps {
-//                 script {
-//                     withCredentials([usernamePassword(
-//                         credentialsId: 'Docker-credentials', 
-//                         passwordVariable: 'PASSWD', 
-//                         usernameVariable: 'USER')]) {
-//                             sh 'docker image build -t cj15/htech-finance-app:v1.$BUILD_ID .'
-//                             sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
-//                         }
-//                 }
-//             }
-//         }        
+        stage('Push Image to dockerhub') {
+            steps {
+                script {
+                     withCredentials([string(credentialsId: 'docker_cred2', variable: 'docker_hub_cred')]) {
+                            sh 'docker login -u cj15 -p ${docker_hub_cred}'
+                            sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
+                        }
+                }
+            }
+        }
     }
 }
