@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+    environment {
+        registryCredentials = "Nexus-credentials"
+        registry = "54.173.113.208:8085/"
+    }
     stages {
         stage('Download Source Code') {
             steps {
@@ -50,7 +55,7 @@ pipeline {
                     ], 
                     credentialsId: 'Nexus-credentials', 
                     groupId: 'com.htech', 
-                    nexusUrl: '54.173.113.208:8081', 
+                    nexusUrl: '54.227.41.117:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: 'HTech-FinanceApp', 
@@ -64,13 +69,24 @@ pipeline {
                             sh 'docker image build -t cj15/htech-finance-app:v1.$BUILD_ID .'
                         }
                 }
+            }        
+            // Uploading Docker images into Nexus Registry
+        stage('Uploading to Nexus') {
+            steps{
+                script {
+                    docker.withRegistry( 'http://'+registry, registryCredentials ) {
+                    sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
+                    }
+                }
             }
+        }
         stage('Push Image to dockerhub') {
             steps {
                 script {
                      withCredentials([string(credentialsId: 'docker_cred2', variable: 'docker_hub_cred')]) {
                             sh 'docker login -u cj15 -p ${docker_hub_cred}'
                             sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
+                            sh 'docker rmi cj15/htech-finance-app:v1.$BUILD_ID '
                         }
                 }
             }
