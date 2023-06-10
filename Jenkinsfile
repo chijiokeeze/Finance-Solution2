@@ -39,7 +39,7 @@ pipeline {
                 waitForQualityGate abortPipeline: true
               }
             }
-          }
+        }
         stage('Upload War file to Nexus') {
             steps {
                 script {
@@ -63,14 +63,16 @@ pipeline {
                 }
             }
         }
-        stage('Docker Image Build') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                            sh 'docker image build -t cj15/htech-finance-app:v1.$BUILD_ID .'
-                        }
+                    docker.withRegistry('http://54.173.113.208:8081/repository/HTech-FinanceApp/com/htech/htech-finance-app/2.0/htech-finance-app-2.0.jar', 'nexus-credentials-id') {
+                        def customImage = docker.build('htech-finance-app')
+                    }
                 }
-            }        
-            // Uploading Docker images into Nexus Registry
+            }
+        }
+        // Uploading Docker images into Nexus Registry
         stage('Uploading to Nexus') {
             steps{
                 script {
@@ -80,6 +82,5 @@ pipeline {
                 }
             }
         }
-
     }
 }
