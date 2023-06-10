@@ -1,7 +1,6 @@
-FROM adoptopenjdk:8-jdk-hotspot
+FROM adoptopenjdk:11-jdk-hotspot
 
 ARG NEXUS_URL
-ARG BASE_IMAGE
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME
