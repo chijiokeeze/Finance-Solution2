@@ -65,7 +65,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('', registryCredentials) {
+                    docker.withRegistry('54.173.113.208:8081', 'Nexus-credentials') {
                         def customImage = docker.build("htech-finance-app:${env.BUILD_ID}", "--build-arg NEXUS_URL=${registry}repository/HTech-FinanceApp/com/htech/htech-finance-app/2.0/htech-finance-app-2.0.jar .")
                     }
                 }
