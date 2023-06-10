@@ -65,21 +65,21 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('54.173.113.208:8081', 'Nexus-credentials') {
-                        def customImage = docker.build("htech-finance-app:${env.BUILD_ID}", "--build-arg NEXUS_URL=${registry}repository/HTech-FinanceApp/com/htech/htech-finance-app/2.0/htech-finance-app-2.0.jar .")
+                    docker.withRegistry('http://54.173.113.208:8081', 'Nexus-credentials') {
+                        def customImage = docker.build("htech-finance-app:${env.BUILD_ID}", "--build-arg NEXUS_URL=http://54.173.113.208:8081/repository/HTech-FinanceApp/com/htech/htech-finance-app/2.0/htech-finance-app-2.0.jar .")
                     }
                 }
             }
         }
-//         // Uploading Docker images into Nexus Registry
-//         stage('Uploading to Nexus') {
-//             steps{
-//                 script {
-//                     docker.withRegistry(registry, registryCredentials) {
-//                         sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID'
-//                     }
-//                 }
-//             }
-//         }
+        // Uploading Docker images into Nexus Registry
+        stage('Uploading to Nexus') {
+            steps{
+                script {
+                    docker.withRegistry(registry, registryCredentials) {
+                        sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID'
+                    }
+                }
+            }
+        }
     }
 }
