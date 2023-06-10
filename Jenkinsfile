@@ -40,7 +40,7 @@ pipeline {
               }
             }
         }
-        stage('Upload War file to  Nexus') {
+        stage('Upload War file to Nexus') {
             steps {
                 script {
                     def readPomVersion = readMavenPom file: 'pom.xml'
@@ -66,7 +66,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('http://54.173.113.208:8081/repository/HTech-FinanceApp/com/htech/htech-finance-app/2.0/htech-finance-app-2.0.jar', 'nexus-credentials-id') {
+                    docker.withRegistry('http://54.173.113.208:8081/repository/HTech-FinanceApp/com/htech/htech-finance-app/2.0/htech-finance-app-2.0.jar', 'Nexus-credentials-id') {
                         def customImage = docker.build('htech-finance-app')
                     }
                 }
