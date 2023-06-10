@@ -54,7 +54,7 @@ pipeline {
                     ],
                     credentialsId: 'Nexus-credentials',
                     groupId: 'com.htech',
-                    nexusUrl: '54.173.113.208:8081',
+                    nexusUrl: 'http://54.173.113.208:8081',
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     repository: 'HTech-FinanceApp',
@@ -66,7 +66,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', registryCredentials) {
-                        def customImage = docker.build('htech-finance-app')
+                        def customImage = docker.build("htech-finance-app:${env.BUILD_ID}", "--build-arg NEXUS_URL=${registry}repository/HTech-FinanceApp/com/htech/htech-finance-app/2.0/htech-finance-app-2.0.jar .")
                     }
                 }
             }
