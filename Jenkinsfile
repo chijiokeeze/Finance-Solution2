@@ -71,15 +71,15 @@ pipeline {
                 }
             }
         }
-        // Uploading Docker images into Nexus Registry
-        stage('Uploading to Nexus') {
-            steps{
-                script {
-                    docker.withRegistry(registry, registryCredentials) {
-                        sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID'
-                    }
-                }
-            }
-        }
+//         // Uploading Docker images into Nexus Registry
+//         stage('Uploading to Nexus') {
+//             steps{
+//                 script {
+//                     docker.withRegistry(registry, registryCredentials) {
+//                         sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID'
+//                     }
+//                 }
+//             }
+//         }
     }
 }
