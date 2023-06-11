@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         registryCredentials = "Nexus-credentials"
-        registry = "http://54.173.113.208:8081/"
+        registry = "http://54.173.113.208:8085/"
     }
     stages {
         stage('Download Source Code') {
