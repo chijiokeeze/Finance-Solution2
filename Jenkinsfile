@@ -86,7 +86,7 @@ pipeline {
             steps {
                 script {
                     // Remove Docker image
-                     docker.image("${imageName}:latest").remove()
+                     dockerimage.remove('latest')
                 }
              }
           }    
