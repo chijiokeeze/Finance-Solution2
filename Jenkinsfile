@@ -67,8 +67,7 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 script {
-                            dockerImage = docker.build imageName
-
+                           sh 'docker image build -t cj15/htech-finance-app:v1.$BUILD_ID .'
                         }
                 }
             }        
