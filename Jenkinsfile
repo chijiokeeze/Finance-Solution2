@@ -41,33 +41,33 @@ pipeline {
               }
             }
           }
-//         stage('Upload War file to Nexus') {
-//             steps {
-//                 script {
-//                     def readPomVersion = readMavenPom file: 'pom.xml'
-//                     nexusArtifactUploader artifacts: 
-//                     [
-//                         [
-//                             artifactId: 'htech-finance-app', 
-//                             classifier: '', 
-//                             file: 'target/htech-finance-app-2.0.jar', 
-//                             type: 'jar'
-//                         ]
-//                     ], 
-//                     credentialsId: 'Nexus-credentials', 
-//                     groupId: 'com.htech', 
-//                     nexusUrl: '54.173.113.208:8081', 
-//                     nexusVersion: 'nexus3', 
-//                     protocol: 'http', 
-//                     repository: 'HTech-FinanceApp', 
-//                     version: "${readPomVersion.version}"
-//                 }
-//             }
-//         }
+        stage('Upload War file to Nexus') {
+            steps {
+                script {
+                    def readPomVersion = readMavenPom file: 'pom.xml'
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'htech-finance-app', 
+                            classifier: '', 
+                            file: 'target/htech-finance-app-2.0.jar', 
+                            type: 'jar'
+                        ]
+                    ], 
+                    credentialsId: 'Nexus-credentials', 
+                    groupId: 'com.htech', 
+                    nexusUrl: '54.173.113.208:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'HTech-FinanceApp', 
+                    version: "${readPomVersion.version}"
+                }
+            }
+        }
         stage('Docker Image Build') {
             steps {
                 script {
-                            def dockerImage = docker.build imageName:("v1.${env.BUILD_ID}")
+                            dockerImage = docker.build imageName
 
                         }
                 }
@@ -77,7 +77,7 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
-                    dockerImage.push imageName:("v1.${env.BUILD_ID}")
+                    dockerImage.push('latest')
                     }
                 }
             }
