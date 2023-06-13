@@ -82,7 +82,7 @@ pipeline {
         stage('Upload Docker Image to Nexus') {
           steps {
             script {
-              def dockerImage = docker.build("54.173.113.208:8085/htech-finance-app:v1.$BUILD_ID")
+              def dockerImage = docker.build("ec2-54-173-113-208.compute-1.amazonaws.com/htech-finance-app:v1.$BUILD_ID")
               withDockerRegistry([credentialsId: 'Nexus-credentials', url: 'http://54.173.113.208:8081']) {
                 docker.withRegistry('', 'docker') {
                   dockerImage.push()
