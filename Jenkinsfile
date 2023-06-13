@@ -1,8 +1,10 @@
 pipeline {
     agent any
     environment {
+        imageName = "finance-app"
         registryCredentials = "Nexus-credentials"
         registry = "ec2-54-173-113-208.compute-1.amazonaws.com:8085"
+        dockerImage = ''
     }
     stages {
         stage('Download Source Code') {
@@ -65,7 +67,7 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 script {
-                            sh 'docker image build -t H-Tech-FinanceApp-docker-repo/fin-app:v1.$BUILD_ID .'
+                            dockerImage = docker.build imageName
                         }
                 }
             }        
@@ -74,7 +76,7 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
-                    sh 'docker image push H-Tech-FinanceApp-docker-repo/fin-app:v1.$BUILD_ID '
+                    dockerImage.push('latest')
                     }
                 }
             }
