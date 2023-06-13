@@ -87,7 +87,7 @@ pipeline {
               steps {
                 script {
                     // Remove Docker image
-                     dockerImage = docker.rmi imageName
+                     docker.image("${imageName}:latest").remove()
                   }
                 }
               }
