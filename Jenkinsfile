@@ -67,7 +67,7 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 script {
-                           sh 'docker image build -t cj15/H-Tech-FinanceApp-docker-repo:v1.$BUILD_ID .'
+                            dockerImage = docker.build imageName
                         }
                 }
             }        
@@ -76,19 +76,11 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
-                    sh 'docker image push cj15/H-Tech-FinanceApp-docker-repo:v1.$BUILD_ID '
+                    dockerImage.push('latest')
                     }
                 }
             }
         }
-        stage('Remove Docker Image') {
-            steps {
-                script {
-                    // Remove Docker image
-                     sh 'docker rmi cj15/H-Tech-FinanceApp-docker-repo:v1.$BUILD_ID '
-                }
-             }
-          }    
 //         stage('Upload Docker Image to Nexus') {
 //           steps {
 //             script {
@@ -112,5 +104,3 @@ pipeline {
 //                 }
 //             }
 //         }
-    }
-}
