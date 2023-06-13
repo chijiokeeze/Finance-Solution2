@@ -82,6 +82,17 @@ pipeline {
                 }
             }
         }
+        stages {
+            stage('Remove Docker Image') {
+              steps {
+                script {
+                    // Remove Docker image
+                    sh 'docker rmi' imageName
+                  }
+                }
+              }
+            }
+          }       
 //         stage('Upload Docker Image to Nexus') {
 //           steps {
 //             script {
