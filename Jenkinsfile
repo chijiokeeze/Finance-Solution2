@@ -82,16 +82,14 @@ pipeline {
                 }
             }
         }
-        stages {
-            stage('Remove Docker Image') {
-              steps {
+        stage('Remove Docker Image') {
+            steps {
                 script {
                     // Remove Docker image
                      docker.image("${imageName}:latest").remove()
-                  }
                 }
-              }
-            }      
+             }
+          }    
 //         stage('Upload Docker Image to Nexus') {
 //           steps {
 //             script {
