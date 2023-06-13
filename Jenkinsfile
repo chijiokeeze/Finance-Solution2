@@ -62,35 +62,33 @@ pipeline {
 //                 }
 //             }
 //         }
-//         stage('Docker Image Build') {
-//             steps {
-//                 script {
-//                             sh 'docker image build -t cj15/htech-finance-app:v1.$BUILD_ID .'
-//                         }
-//                 }
-//             }        
-//             // Uploading Docker images into Nexus Registry
-//         stage('Uploading to Nexus') {
-//             steps{
-//                 script {
-//                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
-//                     sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
-//                     }
-//                 }
-//             }
-//         }
-        stage('Upload Docker Image to Nexus') {
-          steps {
-            script {
-              def dockerImage = docker.build("ec2-54-173-113-208.compute-1.amazonaws.com/htech-finance-app:v1.$BUILD_ID")
-              withDockerRegistry([credentialsId: 'Nexus-credentials', url: 'http://54.173.113.208:8081']) {
-                docker.withRegistry('', 'docker') {
-                  dockerImage.push()
+        stage('Docker Image Build') {
+            steps {
+                script {
+                            sh 'docker image build -t ec2-54-173-113-208.compute-1.amazonaws.com/htech-finance-app:v1.$BUILD_ID .'
+                        }
                 }
-              }
+            }        
+            // Uploading Docker images into Nexus Registry
+        stage('Uploading to Nexus') {
+            steps{
+                script {
+                    sh 'docker image push ec2-54-173-113-208.compute-1.amazonaws.com/htech-finance-app:v1.$BUILD_ID '
+                }
             }
-          }
-        }        
+        }
+//         stage('Upload Docker Image to Nexus') {
+//           steps {
+//             script {
+//               def dockerImage = docker.build("ec2-54-173-113-208.compute-1.amazonaws.com/htech-finance-app:v1.$BUILD_ID")
+//               withDockerRegistry([credentialsId: 'Nexus-credentials', url: 'http://54.173.113.208:8081']) {
+//                 docker.withRegistry('', 'docker') {
+//                   dockerImage.push()
+//                 }
+//               }
+//             }
+//           }
+//         }        
         stage('Push Image to dockerhub') {
             steps {
                 script {
