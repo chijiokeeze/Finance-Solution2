@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         registryCredentials = "Nexus-credentials"
-        registry = "54.173.113.208:8085/"
+        registry = "ec2-54-173-113-208.compute-1.amazonaws.com:8085"
     }
     stages {
         stage('Download Source Code') {
@@ -65,7 +65,7 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 script {
-                            sh 'docker image build -t ec2-54-173-113-208.compute-1.amazonaws.com/htech-finance-app:v1.$BUILD_ID .'
+                            sh 'docker image build -t cj15/htech-finance-app:v1.$BUILD_ID .'
                         }
                 }
             }        
@@ -73,7 +73,9 @@ pipeline {
         stage('Uploading to Nexus') {
             steps{
                 script {
-                    sh 'docker image push ec2-54-173-113-208.compute-1.amazonaws.com/htech-finance-app:v1.$BUILD_ID '
+                    docker.withRegistry( 'http://'+registry, registryCredentials ) {
+                    sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
+                    }
                 }
             }
         }
