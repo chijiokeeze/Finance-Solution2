@@ -67,7 +67,7 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 script {
-                           sh 'docker image build -t cj15/htech-finance-app:v1.$BUILD_ID .'
+                           sh 'docker image build -t cj15/H-Tech-FinanceApp-docker-repo:v1.$BUILD_ID .'
                         }
                 }
             }        
@@ -76,7 +76,7 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
-                    sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
+                    sh 'docker image push cj15/H-Tech-FinanceApp-docker-repo:v1.$BUILD_ID '
                     }
                 }
             }
@@ -85,7 +85,7 @@ pipeline {
             steps {
                 script {
                     // Remove Docker image
-                     sh 'docker rmi cj15/htech-finance-app:v1.$BUILD_ID '
+                     sh 'docker rmi cj15/H-Tech-FinanceApp-docker-repo:v1.$BUILD_ID '
                 }
              }
           }    
