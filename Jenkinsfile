@@ -76,7 +76,7 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
-                    dockerImage.push('latest')
+                    sh 'docker image push cj15/htech-finance-app:v1.$BUILD_ID '
                     }
                 }
             }
@@ -85,7 +85,7 @@ pipeline {
             steps {
                 script {
                     // Remove Docker image
-                     dockerimage.remove('latest')
+                     sh 'docker rmi cj15/htech-finance-app:v1.$BUILD_ID '
                 }
              }
           }    
