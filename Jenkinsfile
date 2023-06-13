@@ -83,7 +83,7 @@ pipeline {
           steps {
             script {
               def dockerImage = docker.build("ec2-54-173-113-208.compute-1.amazonaws.com/htech-finance-app:v1.$BUILD_ID")
-              withDockerRegistry([credentialsId: 'Nexus-credentials', url: 'ec2-54-173-113-208.compute-1.amazonaws.com:8085']) {
+              withDockerRegistry([credentialsId: 'Nexus-credentials', url: '54.173.113.208:8085']) {
                 docker.withRegistry('', 'docker') {
                   dockerImage.push()
                 }
