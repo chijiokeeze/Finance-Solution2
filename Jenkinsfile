@@ -65,7 +65,7 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 script {
-                            sh 'docker image build -t H-Tech-FinanceApp-docker-repo:v1.$BUILD_ID .'
+                            sh 'docker image build -t H-Tech-FinanceApp-docker-repo/fin-app:v1.$BUILD_ID .'
                         }
                 }
             }        
@@ -74,7 +74,7 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
-                    sh 'docker image push H-Tech-FinanceApp-docker-repo:v1.$BUILD_ID '
+                    sh 'docker image push H-Tech-FinanceApp-docker-repo/fin-app:v1.$BUILD_ID '
                     }
                 }
             }
