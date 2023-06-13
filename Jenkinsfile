@@ -87,7 +87,7 @@ pipeline {
               steps {
                 script {
                     // Remove Docker image
-                    sh 'docker rmi' imageName
+                     dockerImage = docker.rmi imageName
                   }
                 }
               }
