@@ -67,7 +67,7 @@ pipeline {
         stage('Docker Image Build') {
             steps {
                 script {
-                            def dockerImage = docker.build("imageName:v1.${env.BUILD_ID}")
+                            def dockerImage = docker.build imageName:("v1.${env.BUILD_ID}")
 
                         }
                 }
@@ -77,7 +77,7 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
-                    dockerImage.push("imageName:v1.${env.BUILD_ID}")
+                    dockerImage.push imageName:("v1.${env.BUILD_ID}")
                     }
                 }
             }
