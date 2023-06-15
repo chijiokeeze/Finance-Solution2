@@ -72,7 +72,7 @@ pipeline {
                 }
             }        
             // Uploading Docker images into Nexus Registry
-        stage('Uploading to Nexus') {
+        stage('Uploading-to-Nexus') {
             steps{
                 script {
                     docker.withRegistry( 'http://'+registry, registryCredentials ) {
