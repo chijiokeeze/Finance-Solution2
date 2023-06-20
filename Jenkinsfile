@@ -54,7 +54,7 @@ pipeline {
                             type: 'jar'
                         ]
                     ], 
-                    credentialsId: 'Nexus-credentials', 
+                    credentialsId: 'nexus2-server-id', 
                     groupId: 'com.htech', 
                     nexusUrl: '44.204.180.168:8081', 
                     nexusVersion: 'nexus3', 
