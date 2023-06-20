@@ -50,7 +50,7 @@ pipeline {
                         [
                             artifactId: 'htech-finance-app', 
                             classifier: '', 
-                            file: 'target/htech-finance-app-3.0.jar', 
+                            file: 'target/htech-finance-app-2.0.jar', 
                             type: 'jar'
                         ]
                     ], 
@@ -60,7 +60,7 @@ pipeline {
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: 'HTech-FinanceApp', 
-                    version: '3.0'
+                    version: '2.0'
                 }
             }
         }
