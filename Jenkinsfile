@@ -3,7 +3,7 @@ pipeline {
     environment {
         imageName = "finance-app"
         registryCredentials = "Nexus-credentials"
-        registry = "ec2-54-173-113-208.compute-1.amazonaws.com:8085"
+        registry = "ec2-54-167-64-162.compute-1.amazonaws.com:8085"
         dockerImage = ''
     }
     stages {
@@ -50,7 +50,7 @@ pipeline {
                         [
                             artifactId: 'htech-finance-app', 
                             classifier: '', 
-                            file: 'target/htech-finance-app-2.0.jar', 
+                            file: 'target/htech-finance-app-3.0.jar', 
                             type: 'jar'
                         ]
                     ], 
