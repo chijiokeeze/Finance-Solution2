@@ -59,7 +59,7 @@ pipeline {
                     nexusUrl: '44.204.180.168:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
-                    repository: 'HTech-FinanceApp', 
+                    repository: 'new-htech-repo', 
                     version: "${readPomVersion.version}"
                 }
             }
