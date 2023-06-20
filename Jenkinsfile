@@ -56,7 +56,7 @@ pipeline {
                     ], 
                     credentialsId: 'Nexus-credentials', 
                     groupId: 'com.htech', 
-                    nexusUrl: '54.167.64.162:8081', 
+                    nexusUrl: '18.205.236.228:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: 'HTech-FinanceApp', 
