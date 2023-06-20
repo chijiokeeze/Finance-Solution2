@@ -3,7 +3,7 @@ pipeline {
     environment {
         imageName = "finance-app"
         registryCredentials = "Nexus-credentials"
-        registry = "ec2-54-167-64-162.compute-1.amazonaws.com:8085"
+        registry = "ec2-18-205-236-228.compute-1.amazonaws.com:8085"
         dockerImage = ''
     }
     stages {
